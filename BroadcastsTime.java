@@ -42,7 +42,9 @@ public class BroadcastsTime implements Comparable<BroadcastsTime> {
         }
         return false;
     }
-
+    public String toString() {
+        return hour + ":" + min;
+    }
     @Override
     public int compareTo(BroadcastsTime t) {
         if (after(t)) return 1;
