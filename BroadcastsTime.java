@@ -16,13 +16,31 @@ public class BroadcastsTime implements Comparable<BroadcastsTime> {
         return minutes;
     }
     boolean after(BroadcastsTime t) {
-        return (t.hour() <= this.hour) && (t.minutes() <= this.minutes);
+        if (hour() != t.hour()) return hour() > t.hour();
+        else {
+            return minutes() > t.minutes();
+        }
     }
     boolean before(BroadcastsTime t) {
-        return (t.hour() >= this.hour) && (t.minutes() >= this.minutes);
+        if (hour() != t.hour()) return hour() < t.hour();
+        else {
+            return minutes() < t.minutes();
+        }
     }
     boolean between(BroadcastsTime t1, BroadcastsTime t2) {
-        return ((t1.hour() <= this.hour) & (this.hour <= t2.hour()) && (t1.minutes() <= this.minutes) & (this.minutes <= t2.minutes()));
+        if (t1.hour() > t2.hour()) {
+            return false;
+        }
+        if (t1.hour() <= hour() && hour() <= t2.hour()) {
+            if ((t1.hour() == hour() && t1.minutes() > minutes())) {
+                return false;
+            }
+            if ((t2.hour() == hour()) && minutes() >= t2.minutes()) {
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
